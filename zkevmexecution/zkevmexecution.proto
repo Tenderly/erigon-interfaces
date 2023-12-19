@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package execution;
+package zkevmexecution;
 
-import "types/zkevmtypes.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
 option go_package = "./zkevmexecution;zkevmexecution";
 
@@ -15,14 +15,14 @@ enum ValidationStatus {
 
 message ForkChoiceReceipt {
     bool success = 1; // Forkchoice is either successful or unsuccessful.
-    types.H256 latest_valid_hash = 2; // Return latest valid hash in case of halt of execution.
+    zkevmtypes.H256 latest_valid_hash = 2; // Return latest valid hash in case of halt of execution.
 }
 
 // Result we receive after validation
 message ValidationReceipt {
     ValidationStatus validation_status = 1;
-    types.H256 latest_valid_hash = 2;
-    optional types.H256 missing_hash = 3; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
+    zkevmtypes.H256 latest_valid_hash = 2;
+    optional zkevmtypes.H256 missing_hash = 3; // The missing hash, in case we receive MissingSegment so that we can reverse download it.
 };
 
 message IsCanonicalResponse {
@@ -31,35 +31,35 @@ message IsCanonicalResponse {
 
 // Header is a header for execution
 message Header {
-  types.H256 parent_hash = 1;
-  types.H160 coinbase = 2;
-  types.H256 state_root = 3;
-  types.H256 receipt_root = 4;
-  types.H2048 logs_bloom = 5;
-  types.H256 mix_digest = 6;
+  zkevmtypes.H256 parent_hash = 1;
+  zkevmtypes.H160 coinbase = 2;
+  zkevmtypes.H256 state_root = 3;
+  zkevmtypes.H256 receipt_root = 4;
+  zkevmtypes.H2048 logs_bloom = 5;
+  zkevmtypes.H256 mix_digest = 6;
   uint64 block_number = 7;
   uint64 gas_limit = 8;
   uint64 gas_used = 9;
   uint64 timestamp = 10;
   uint64 nonce = 11;
   bytes extra_data = 12;
-  types.H256 difficulty = 13;
-  types.H256 block_hash = 14; // We keep this so that we can validate it
-  types.H256 ommer_hash = 15;
-  types.H256 transaction_hash = 16;
-  optional types.H256 base_fee_per_gas = 17;
-  optional types.H256 withdrawal_hash = 18;
-  optional types.H256 excess_data_gas = 19;
+  zkevmtypes.H256 difficulty = 13;
+  zkevmtypes.H256 block_hash = 14; // We keep this so that we can validate it
+  zkevmtypes.H256 ommer_hash = 15;
+  zkevmtypes.H256 transaction_hash = 16;
+  optional zkevmtypes.H256 base_fee_per_gas = 17;
+  optional zkevmtypes.H256 withdrawal_hash = 18;
+  optional zkevmtypes.H256 excess_data_gas = 19;
 }
 
 // Body is a block body for execution
 message BlockBody {
-  types.H256 block_hash = 1;
+  zkevmtypes.H256 block_hash = 1;
   uint64 block_number = 2;
   // Raw transactions in byte format.
   repeated bytes transactions = 3;
   repeated Header uncles = 4;
-  repeated types.Withdrawal withdrawals = 5;
+  repeated zkevmtypes.Withdrawal withdrawals = 5;
 }
 
 message GetHeaderResponse {
@@ -77,7 +77,7 @@ message GetHeaderHashNumberResponse {
 message GetSegmentRequest {
     // Get headers/body by number or hash, invalid if none set.
     optional uint64 block_number = 1;
-    optional types.H256 block_hash = 2;
+    optional zkevmtypes.H256 block_hash = 2;
 }
 
 message InsertHeadersRequest {
@@ -95,12 +95,12 @@ service Execution {
     rpc InsertHeaders(InsertHeadersRequest) returns(EmptyMessage);
     rpc InsertBodies(InsertBodiesRequest) returns(EmptyMessage);
     // Chain Validation and ForkChoice.
-    rpc ValidateChain(types.H256) returns(ValidationReceipt);
-    rpc UpdateForkChoice(types.H256) returns(ForkChoiceReceipt);
-    rpc AssembleBlock(EmptyMessage) returns(types.ExecutionPayload); // Builds on top of current head.
+    rpc ValidateChain(zkevmtypes.H256) returns(ValidationReceipt);
+    rpc UpdateForkChoice(zkevmtypes.H256) returns(ForkChoiceReceipt);
+    rpc AssembleBlock(EmptyMessage) returns(zkevmtypes.ExecutionPayload); // Builds on top of current head.
     // Chain Getters.
     rpc GetHeader(GetSegmentRequest) returns(GetHeaderResponse);
     rpc GetBody(GetSegmentRequest) returns(GetBodyResponse);
-    rpc IsCanonicalHash(types.H256) returns(IsCanonicalResponse);
-    rpc GetHeaderHashNumber(types.H256) returns(GetHeaderHashNumberResponse);
+    rpc IsCanonicalHash(zkevmtypes.H256) returns(IsCanonicalResponse);
+    rpc GetHeaderHashNumber(zkevmtypes.H256) returns(GetHeaderHashNumberResponse);
 }

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/descriptor.proto";
 
-package types;
+package zkevmtypes;
 
 option go_package = "./zkevmtypes;zkevmtypes";
 

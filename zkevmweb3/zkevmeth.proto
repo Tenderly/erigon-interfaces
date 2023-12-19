@@ -1,15 +1,15 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "web3/zkevmcommon.proto";
-import "types/zkevmtypes.proto";
+import "zkevmweb3/zkevmcommon.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
-package web3;
+package zkevmweb3;
 
 message BlockNumberResponse { uint64 block_number = 1; }
 
 message ResolveBlockHashRequest { uint64 block_number = 1; }
-message ResolveBlockHashResponse { optional types.H256 block_hash = 1; }
+message ResolveBlockHashResponse { optional zkevmtypes.H256 block_hash = 1; }
 
 message BlockRequest { optional BlockId search_location = 1; }
 message LightBlockResponse { optional LightBlock block = 1; }
@@ -24,6 +24,6 @@ service EthApi {
 
   rpc LightBlock(BlockRequest) returns (LightBlockResponse);
   rpc FullBlock(BlockRequest) returns (FullBlockResponse);
-  rpc TransactionByHash(types.H256) returns (TransactionResponse);
+  rpc TransactionByHash(zkevmtypes.H256) returns (TransactionResponse);
   rpc SendTransaction(Transaction) returns (google.protobuf.Empty);
 }

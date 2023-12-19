@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "types/zkevmtypes.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
-package remote;
+package zkevmremote;
 
 option go_package = "./zkevmremote;zkevmremote";
 
@@ -33,7 +33,7 @@ option go_package = "./zkevmremote;zkevmremote";
 // Provides methods to access key-value data
 service KV {
   // Version returns the service version number
-  rpc Version(google.protobuf.Empty) returns (types.VersionReply);
+  rpc Version(google.protobuf.Empty) returns (zkevmtypes.VersionReply);
 
   // Tx exposes read-only transactions for the key-value store
   //
@@ -114,12 +114,12 @@ enum Action {
 }
 
 message StorageChange {
-  types.H256 location = 1;
+  zkevmtypes.H256 location = 1;
   bytes data = 2;
 }
 
 message AccountChange {
-  types.H160 address = 1;
+  zkevmtypes.H160 address = 1;
   uint64 incarnation = 2;
   Action action = 3;
   bytes data = 4; // nil if there is no UPSERT in action
@@ -144,7 +144,7 @@ message StateChangeBatch {
 message StateChange {
   Direction direction = 1;
   uint64 block_height = 2;
-  types.H256 block_hash = 3;
+  zkevmtypes.H256 block_hash = 3;
   repeated AccountChange changes = 4;
   repeated bytes txs = 5;     // enable by withTransactions=true
 }

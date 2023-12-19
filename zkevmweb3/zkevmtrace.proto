@@ -1,41 +1,41 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "web3/zkevmcommon.proto";
-import "types/zkevmtypes.proto";
+import "zkevmweb3/zkevmcommon.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
-package web3;
+package zkevmweb3;
 
 // Call params
 
 message LegacyCall {
-  optional types.H160 from = 1;
-  optional types.H160 to = 2;
+  optional zkevmtypes.H160 from = 1;
+  optional zkevmtypes.H160 to = 2;
   optional uint64 gas_limit = 3;
   optional uint64 gas_price = 4;
-  optional types.H256 value = 5;
+  optional zkevmtypes.H256 value = 5;
   optional bytes input = 6;
 }
 
 message AccessList { repeated AccessListItem access_list = 1; }
 
 message EIP2930Call {
-  optional types.H160 from = 1;
-  optional types.H160 to = 2;
+  optional zkevmtypes.H160 from = 1;
+  optional zkevmtypes.H160 to = 2;
   optional uint64 gas_limit = 3;
   optional uint64 gas_price = 4;
-  optional types.H256 value = 5;
+  optional zkevmtypes.H256 value = 5;
   optional bytes input = 6;
   optional AccessList access_list = 7;
 }
 
 message EIP1559Call {
-  optional types.H160 from = 1;
-  optional types.H160 to = 2;
+  optional zkevmtypes.H160 from = 1;
+  optional zkevmtypes.H160 to = 2;
   optional uint64 gas_limit = 3;
   optional uint64 max_priority_fee_per_gas = 4;
   optional uint64 max_fee_per_gas = 5;
-  optional types.H256 value = 6;
+  optional zkevmtypes.H256 value = 6;
   optional bytes input = 7;
   optional AccessList access_list = 8;
 }
@@ -70,11 +70,11 @@ message TraceBlockRequest {
 }
 
 message TraceTransactionRequest {
-  types.H256 hash = 1;
+  zkevmtypes.H256 hash = 1;
   TraceKinds kinds = 2;
 }
 
-message AddressSet { repeated types.H160 addresses = 1; }
+message AddressSet { repeated zkevmtypes.H160 addresses = 1; }
 
 enum FilterMode {
   Union = 0;
@@ -99,30 +99,30 @@ enum CallType {
 }
 
 message CallAction {
-  types.H160 from = 1;
-  types.H160 to = 2;
-  types.H256 value = 3;
+  zkevmtypes.H160 from = 1;
+  zkevmtypes.H160 to = 2;
+  zkevmtypes.H256 value = 3;
   uint64 gas = 4;
   bytes input = 5;
   optional CallType call_type = 6;
 }
 
 message CreateAction {
-  types.H160 from = 1;
-  types.H256 value = 2;
+  zkevmtypes.H160 from = 1;
+  zkevmtypes.H256 value = 2;
   uint64 gas = 3;
   bytes init = 4;
 }
 
 message SelfdestructAction {
-  types.H160 address = 1;
-  types.H160 refund_address = 2;
-  types.H256 balance = 3;
+  zkevmtypes.H160 address = 1;
+  zkevmtypes.H160 refund_address = 2;
+  zkevmtypes.H256 balance = 3;
 }
 
 message RewardAction {
-  types.H160 author = 1;
-  types.H256 value = 2;
+  zkevmtypes.H160 author = 1;
+  zkevmtypes.H256 value = 2;
   enum RewardType {
     Block = 0;
     Uncle = 1;
@@ -154,7 +154,7 @@ message CallOutput {
 message CreateOutput {
   uint64 gas_used = 1;
   bytes code = 2;
-  types.H160 address = 3;
+  zkevmtypes.H160 address = 3;
 }
 
 message TraceOutput {
@@ -177,9 +177,9 @@ message TraceWithLocation {
   Trace trace = 1;
 
   optional uint64 transaction_position = 2;
-  optional types.H256 transaction_hash = 3;
+  optional zkevmtypes.H256 transaction_hash = 3;
   uint64 block_number = 4;
-  types.H256 block_hash = 5;
+  zkevmtypes.H256 block_hash = 5;
 }
 
 message TracesWithLocation { repeated TraceWithLocation traces = 1; }
@@ -194,13 +194,13 @@ message MemoryDelta {
 }
 
 message StorageDelta {
-  types.H256 key = 1;
-  types.H256 val = 2;
+  zkevmtypes.H256 key = 1;
+  zkevmtypes.H256 val = 2;
 }
 
 message VmExecutedOperation {
   uint64 used = 1;
-  optional types.H256 push = 2;
+  optional zkevmtypes.H256 push = 2;
   optional MemoryDelta mem = 3;
   optional StorageDelta store = 4;
 }
@@ -220,15 +220,15 @@ message VmTrace {
 // State diff
 
 message AlteredH256 {
-  types.H256 from = 1;
-  types.H256 to = 2;
+  zkevmtypes.H256 from = 1;
+  zkevmtypes.H256 to = 2;
 }
 
 message DeltaH256 {
   oneof delta {
     google.protobuf.Empty unchanged = 1;
-    types.H256 added = 2;
-    types.H256 removed = 3;
+    zkevmtypes.H256 added = 2;
+    zkevmtypes.H256 removed = 3;
     AlteredH256 altered = 4;
   }
 }
@@ -262,7 +262,7 @@ message DeltaBytes {
 }
 
 message StorageDiffEntry {
-  types.H256 location = 1;
+  zkevmtypes.H256 location = 1;
   DeltaH256 delta = 2;
 }
 
@@ -274,7 +274,7 @@ message AccountDiff {
 }
 
 message AccountDiffEntry {
-  types.H160 key = 1;
+  zkevmtypes.H160 key = 1;
   AccountDiff value = 2;
 }
 
@@ -289,7 +289,7 @@ message FullTrace {
 
 message FullTraceWithTransactionHash {
   FullTrace full_trace = 1;
-  types.H256 transaction_hash = 2;
+  zkevmtypes.H256 transaction_hash = 2;
 }
 
 message FullTraces { repeated FullTrace traces = 1; }

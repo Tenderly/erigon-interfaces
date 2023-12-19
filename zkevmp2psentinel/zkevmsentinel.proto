@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package sentinel;
+package zkevmsentinel;
 
-option go_package = "./sentinel;sentinel";
+option go_package = "./zkevmsentinel;zkevmsentinel";
 
-import "types/zkevmtypes.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
 message EmptyMessage {}
 
@@ -34,9 +34,9 @@ message GossipData {
 
 message Status {
     uint32 fork_digest = 1; // 4 bytes can be repressented in uint32.
-    types.H256 finalized_root = 2;
+    zkevmtypes.H256 finalized_root = 2;
     uint64 finalized_epoch = 3;
-    types.H256 head_root = 4;
+    zkevmtypes.H256 head_root = 4;
     uint64 head_slot = 5;
 }
 

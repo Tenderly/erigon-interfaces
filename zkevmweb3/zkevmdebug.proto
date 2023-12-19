@@ -1,29 +1,29 @@
 syntax = "proto3";
 
-import "types/zkevmtypes.proto";
-import "web3/zkevmcommon.proto";
+import "zkevmtypes/zkevmtypes.proto";
+import "zkevmweb3/zkevmcommon.proto";
 
-package web3;
+package zkevmweb3;
 
 message AccountStreamRequest {
   BlockId block_id = 1;
-  optional types.H160 offset = 2;
+  optional zkevmtypes.H160 offset = 2;
 }
 message Account {
-  types.H160 address = 1;
-  types.H256 balance = 2;
+  zkevmtypes.H160 address = 1;
+  zkevmtypes.H256 balance = 2;
   uint64 nonce = 3;
   bytes code = 4;
 }
 
 message StorageStreamRequest {
   BlockId block_id = 1;
-  types.H160 address = 2;
-  optional types.H256 offset = 3;
+  zkevmtypes.H160 address = 2;
+  optional zkevmtypes.H256 offset = 3;
 }
 message StorageSlot {
-  types.H256 key = 1;
-  types.H256 value = 2;
+  zkevmtypes.H256 key = 1;
+  zkevmtypes.H256 value = 2;
 }
 
 service DebugApi {

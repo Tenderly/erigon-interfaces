@@ -1,11 +1,11 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "types/zkevmtypes.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
-package sentry;
+package zkevmsentry;
 
-option go_package = "./sentry;sentry";
+option go_package = "./zkevmsentry;zkevmsentry";
 
 enum MessageId {
   // ======= eth 65 protocol ===========
@@ -71,7 +71,7 @@ message SendMessageByMinBlockRequest {
 
 message SendMessageByIdRequest {
   OutboundMessageData data = 1;
-  types.H512 peer_id = 2;
+  zkevmtypes.H512 peer_id = 2;
 }
 
 message SendMessageToRandomPeersRequest {
@@ -79,36 +79,36 @@ message SendMessageToRandomPeersRequest {
   uint64 max_peers = 2;
 }
 
-message SentPeers {repeated types.H512 peers = 1;}
+message SentPeers {repeated zkevmtypes.H512 peers = 1;}
 
 enum PenaltyKind {Kick = 0;}
 
 message PenalizePeerRequest {
-  types.H512 peer_id = 1;
+  zkevmtypes.H512 peer_id = 1;
   PenaltyKind penalty = 2;
 }
 
 message PeerMinBlockRequest {
-  types.H512 peer_id = 1;
+  zkevmtypes.H512 peer_id = 1;
   uint64 min_block = 2;
 }
 
 message InboundMessage {
   MessageId id = 1;
   bytes data = 2;
-  types.H512 peer_id = 3;
+  zkevmtypes.H512 peer_id = 3;
 }
 
 message Forks {
-  types.H256 genesis = 1;
+  zkevmtypes.H256 genesis = 1;
   repeated uint64 height_forks = 2;
   repeated uint64 time_forks = 3;
 }
 
 message StatusData {
   uint64 network_id = 1;
-  types.H256 total_difficulty = 2;
-  types.H256 best_hash = 3;
+  zkevmtypes.H256 total_difficulty = 2;
+  zkevmtypes.H256 best_hash = 3;
   Forks fork_data = 4;
   uint64 max_block_height = 5;
   uint64 max_block_time = 6;
@@ -132,7 +132,7 @@ message MessagesRequest {
 }
 
 message PeersReply {
-  repeated types.PeerInfo peers = 1;
+  repeated zkevmtypes.PeerInfo peers = 1;
 }
 
 message PeerCountRequest {}
@@ -147,9 +147,9 @@ message PeerCountReply {
   repeated PeerCountPerProtocol counts_per_protocol = 2;
 }
 
-message PeerByIdRequest {types.H512 peer_id = 1;}
+message PeerByIdRequest {zkevmtypes.H512 peer_id = 1;}
 
-message PeerByIdReply {optional types.PeerInfo peer = 1;}
+message PeerByIdReply {optional zkevmtypes.PeerInfo peer = 1;}
 
 message PeerEventsRequest {}
 
@@ -159,7 +159,7 @@ message PeerEvent {
     Connect = 0;
     Disconnect = 1;
   }
-  types.H512 peer_id = 1;
+  zkevmtypes.H512 peer_id = 1;
   PeerEventId event_id = 2;
 }
 
@@ -191,5 +191,5 @@ service Sentry {
   rpc PeerEvents(PeerEventsRequest) returns (stream PeerEvent);
 
   // NodeInfo returns a collection of metadata known about the host.
-  rpc NodeInfo(google.protobuf.Empty) returns(types.NodeInfoReply);
+  rpc NodeInfo(google.protobuf.Empty) returns(zkevmtypes.NodeInfoReply);
 }

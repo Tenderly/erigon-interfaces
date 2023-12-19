@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "types/zkevmtypes.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
-package txpool;
+package zkevmtxpool;
 
 option go_package = "./zkevmtxpool;zkevmtxpool";
 
@@ -63,7 +63,7 @@ message MiningReply {
 
 service Mining {
   // Version returns the service version number
-  rpc Version(google.protobuf.Empty) returns (types.VersionReply);
+  rpc Version(google.protobuf.Empty) returns (zkevmtypes.VersionReply);
 
   // subscribe to pending blocks event
   rpc OnPendingBlock(OnPendingBlockRequest) returns (stream OnPendingBlockReply);

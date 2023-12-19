@@ -1,11 +1,11 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "types/zkevmtypes.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
 option go_package = "./zkevmdownloader;zkevmdownloader";
 
-package downloader;
+package zkevmdownloader;
 
 service Downloader {
   rpc Download (DownloadRequest) returns (google.protobuf.Empty) {}
@@ -18,7 +18,7 @@ service Downloader {
 // - if Erigon wnat download files - it fills only "torrent_hash" field
 message DownloadItem {
   string path = 1;
-  types.H160 torrent_hash = 2; // will be resolved as magnet link
+  zkevmtypes.H160 torrent_hash = 2; // will be resolved as magnet link
 }
 message DownloadRequest {
   repeated DownloadItem items = 1; // single hash will be resolved as magnet link

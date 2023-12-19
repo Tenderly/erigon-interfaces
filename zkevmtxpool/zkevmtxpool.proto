@@ -1,14 +1,14 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "types/zkevmtypes.proto";
+import "zkevmtypes/zkevmtypes.proto";
 
-package txpool;
+package zkevmtxpool;
 
 option go_package = "./zkevmtxpool;zkevmtxpool";
 
 message TxHashes {
-  repeated types.H256 hashes = 1;
+  repeated zkevmtypes.H256 hashes = 1;
 }
 
 message AddRequest {
@@ -30,7 +30,7 @@ message AddReply {
 }
 
 message TransactionsRequest {
-  repeated types.H256 hashes = 1;
+  repeated zkevmtypes.H256 hashes = 1;
 }
 message TransactionsReply {
   repeated bytes rlp_txs = 1;
@@ -50,7 +50,7 @@ message AllReply {
   }
   message Tx {
     TxnType txn_type = 1;
-    types.H160 sender = 2;
+    zkevmtypes.H160 sender = 2;
     bytes rlp_tx = 3;
   }
   repeated Tx txs = 1;
@@ -58,7 +58,7 @@ message AllReply {
 
 message PendingReply {
   message Tx {
-    types.H160 sender = 1;
+    zkevmtypes.H160 sender = 1;
     bytes rlp_tx = 2;
     bool is_local = 3;
   }
@@ -73,7 +73,7 @@ message StatusReply {
 }
 
 message NonceRequest {
-  types.H160 address = 1;
+  zkevmtypes.H160 address = 1;
 }
 message NonceReply {
   bool found = 1;
@@ -82,7 +82,7 @@ message NonceReply {
 
 service Txpool {
   // Version returns the service version number
-  rpc Version(google.protobuf.Empty) returns (types.VersionReply);
+  rpc Version(google.protobuf.Empty) returns (zkevmtypes.VersionReply);
   // preserves incoming order, changes amount, unknown hashes will be omitted
   rpc FindUnknown(TxHashes) returns (TxHashes);
   // Expecting signed transactions. Preserves incoming order and amount
