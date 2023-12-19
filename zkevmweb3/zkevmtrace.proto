@@ -1,8 +1,8 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "web3/common.proto";
-import "types/types.proto";
+import "web3/zkevmcommon.proto";
+import "types/zkevmtypes.proto";
 
 package web3;
 

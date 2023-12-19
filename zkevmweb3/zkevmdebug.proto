@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-import "types/types.proto";
-import "web3/common.proto";
+import "types/zkevmtypes.proto";
+import "web3/zkevmcommon.proto";
 
 package web3;
 

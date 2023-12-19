@@ -77,8 +77,8 @@ The API design is not limited to JSON-RPC/http with `eth_call`s, it could be som
 The API Service connects to the [Core].
 
 In Erigon, there are with two interfaces:
-- [ETH Backend, proto](../remote/ethbackend.proto) -- blockchain events and core technical information (versions, etc)
-- [KV, proto](../remote/kv.proto) -- database access
+- [ETH Backend, proto](../zkevmremote/zkevmethbackend.proto) -- blockchain events and core technical information (versions, etc)
+- [KV, proto](../zkevmremote/zkevmkv.proto) -- database access
 
 ## 2. Sentry
 
@@ -87,7 +87,7 @@ Sentry is the component, connecting the node to the p2p network of the blockchai
 Sentry accepts connections from [Core] and [Transaction Pool] components.
 
 Erigon has the following interface for sentry:
-- [P2Psentry, proto](../p2psentry/sentry.proto) -- sending/receiving messages, and peer penalization mechanism.
+- [P2Psentry, proto](../zkevmp2psentry/zkevmsentry.proto) -- sending/receiving messages, and peer penalization mechanism.
 
 Both the [transaction pool] and the [core] use the same interface.
 
@@ -103,9 +103,9 @@ Separating tx pool in a separate components, makes forks like [mev-geth](https:/
 Transaction Pool connects to both Sentry and Core. Sentry provides new transactions to the tx pool, and Core either sends events to remove txs when a block with them is discovered, either from peers or through mining. Also, Core can re-add txs into the transaction pool in cases of chain splits.
 
 Erigon has the following interfaces for the transaction pool
-- [txpool, proto](../txpool/txpool.proto)
-- [txpool_control, proto](../txpool/txpool_control.proto)
-- [mining, proto](../txpool/mining.proto)
+- [txpool, proto](../zkevmtxpool/zkevmtxpool.proto)
+- [txpool_control, proto](../zkevmtxpool/txpool_control.proto)
+- [mining, proto](../zkevmtxpool/zkevmmining.proto)
 
 See more about the architecture: https://github.com/ledgerwatch/erigon/wiki/Transaction-Pool-Design
 

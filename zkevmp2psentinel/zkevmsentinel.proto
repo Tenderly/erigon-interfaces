@@ -4,7 +4,7 @@ package sentinel;
 
 option go_package = "./sentinel;sentinel";
 
-import "types/types.proto";
+import "types/zkevmtypes.proto";
 
 message EmptyMessage {}
 

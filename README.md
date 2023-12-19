@@ -18,7 +18,7 @@ NOTE: You are free to ignore provided wrappers and use the .proto files directly
 Using a go module is the most effective way to include these definitions in consuming repos.
 
 ``` 
-go get github.com/ledgerwatch/interfaces
+go get github.com/tenderly/erigon-interfaces
 ```
 
 This makes local development easier as go.mod redirect can be used, and saves on submodule/tree updates (which were the previous method of consumption).

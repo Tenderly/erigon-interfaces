@@ -1,11 +1,11 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "types/types.proto";
+import "types/zkevmtypes.proto";
 
 package remote;
 
-option go_package = "./remote;remote";
+option go_package = "./zkevmremote;zkevmremote";
 
 service ETHBACKEND {
   rpc Etherbase(EtherbaseRequest) returns (EtherbaseReply);

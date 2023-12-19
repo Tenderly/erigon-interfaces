@@ -1,11 +1,11 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "types/types.proto";
+import "types/zkevmtypes.proto";
 
 package txpool;
 
-option go_package = "./txpool;txpool";
+option go_package = "./zkevmtxpool;zkevmtxpool";
 
 message OnPendingBlockRequest {}
 message OnPendingBlockReply {

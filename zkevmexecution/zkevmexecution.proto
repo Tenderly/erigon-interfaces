@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package execution;
 
-import "types/types.proto";
+import "types/zkevmtypes.proto";
 
-option go_package = "./execution;execution";
+option go_package = "./zkevmexecution;zkevmexecution";
 
 enum ValidationStatus {
     Success = 0;      // State transition simulation is successful.
