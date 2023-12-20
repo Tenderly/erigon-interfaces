@@ -13,9 +13,9 @@ option go_package = "./zkevmtypes;zkevmtypes";
 
 // Extensions of file-level options for service versioning: should *not* be modified
 extend google.protobuf.FileOptions {
-  uint32 service_major_version = 50001;
-  uint32 service_minor_version = 50002;
-  uint32 service_patch_version = 50003;
+  uint32 service_major_version = 60001;
+  uint32 service_minor_version = 60002;
+  uint32 service_patch_version = 60003;
 }
 
 message H128 {
